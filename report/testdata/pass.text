@@ -1,0 +1,12 @@
+bootlog-check: PASS
+summary: total=3 passed=3 failed=0 not_evaluated=0
+schema_version: 1
+timing_basis: boot_start (elapsed_ns = witness timestamp_ns - origin timestamp_ns)
+origin: line=2 timestamp_ns=1000000 message="BOOT"
+[passed] boot_start (start): reason=matched within_ms=none elapsed_ns=0 match_count=1
+  evidence: line=2 timestamp_ns=1000000 message="BOOT"
+[passed] ready (milestone): reason=matched within_ms=1 elapsed_ns=1000000 match_count=2
+  evidence: line=3 timestamp_ns=2000000 message="READY"
+[passed] panic (forbidden): reason=absent within_ms=none elapsed_ns=none match_count=0
+  evidence: none
+scope: Results describe only the supplied capture; a pass does not prove capture completeness or device health.

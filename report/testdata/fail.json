@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "timing_basis": "boot_start",
+  "origin": {
+    "line": 2,
+    "timestamp_ns": 1000000,
+    "message": "BOOT"
+  },
+  "checks": [
+    {
+      "id": "boot_start",
+      "kind": "start",
+      "status": "passed",
+      "reason": "matched",
+      "within_ms": null,
+      "elapsed_ns": 0,
+      "match_count": 1,
+      "evidence": {
+        "line": 2,
+        "timestamp_ns": 1000000,
+        "message": "BOOT"
+      }
+    },
+    {
+      "id": "late",
+      "kind": "milestone",
+      "status": "failed",
+      "reason": "late",
+      "within_ms": 2,
+      "elapsed_ns": 2000001,
+      "match_count": 1,
+      "evidence": {
+        "line": 4,
+        "timestamp_ns": 3000001,
+        "message": "LATE"
+      }
+    },
+    {
+      "id": "untimed",
+      "kind": "milestone",
+      "status": "failed",
+      "reason": "untimed",
+      "within_ms": 0,
+      "elapsed_ns": null,
+      "match_count": 2,
+      "evidence": {
+        "line": 3,
+        "timestamp_ns": null,
+        "message": "UNTIMED"
+      }
+    },
+    {
+      "id": "missing",
+      "kind": "milestone",
+      "status": "failed",
+      "reason": "missing",
+      "within_ms": null,
+      "elapsed_ns": null,
+      "match_count": 0,
+      "evidence": null
+    },
+    {
+      "id": "panic",
+      "kind": "forbidden",
+      "status": "failed",
+      "reason": "forbidden_match",
+      "within_ms": null,
+      "elapsed_ns": -1000000,
+      "match_count": 3,
+      "evidence": {
+        "line": 1,
+        "timestamp_ns": 0,
+        "message": "PANIC"
+      }
+    }
+  ],
+  "summary": {
+    "total": 5,
+    "passed": 1,
+    "failed": 4,
+    "not_evaluated": 0
+  },
+  "scope": "Results describe only the supplied capture; a pass does not prove capture completeness or device health."
+}

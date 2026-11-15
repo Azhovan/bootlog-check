@@ -1,0 +1,12 @@
+U-Boot 2024.01 (synthetic parser fixture)
+DRAM:  512 MiB
+
+Starting kernel ...
+
+[    0.000000] Booting Linux on physical CPU 0x0
+[    0.000000] Linux version fixture
+[    0.125000] printk: console [ttyAMA0] enabled
+[ OK ] Started fixture service
+[    1.000000001] NETWORK_READY
+[    1.250000] APP_READY
+[    1.500000] post-ready diagnostic

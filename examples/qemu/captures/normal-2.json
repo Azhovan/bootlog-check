@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "timing_basis": "boot_start",
+  "origin": {
+    "line": 2,
+    "timestamp_ns": 0,
+    "message": "Linux version 6.12.60-bootlog (bootlog@example) (gcc (Alpine 15.2.0) 15.2.0, GNU ld (GNU Binutils) 2.45.1) #1 SMP 2026-11-15 00:00:00 +0000"
+  },
+  "checks": [
+    {
+      "id": "boot_start",
+      "kind": "start",
+      "status": "passed",
+      "reason": "matched",
+      "within_ms": null,
+      "elapsed_ns": 0,
+      "match_count": 1,
+      "evidence": {
+        "line": 2,
+        "timestamp_ns": 0,
+        "message": "Linux version 6.12.60-bootlog (bootlog@example) (gcc (Alpine 15.2.0) 15.2.0, GNU ld (GNU Binutils) 2.45.1) #1 SMP 2026-11-15 00:00:00 +0000"
+      }
+    },
+    {
+      "id": "ready",
+      "kind": "milestone",
+      "status": "passed",
+      "reason": "matched",
+      "within_ms": 5000,
+      "elapsed_ns": 1143841000,
+      "match_count": 1,
+      "evidence": {
+        "line": 81,
+        "timestamp_ns": 1143841000,
+        "message": "BOOTLOG_READY"
+      }
+    },
+    {
+      "id": "fault",
+      "kind": "forbidden",
+      "status": "passed",
+      "reason": "absent",
+      "within_ms": null,
+      "elapsed_ns": null,
+      "match_count": 0,
+      "evidence": null
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "not_evaluated": 0
+  },
+  "scope": "Results describe only the supplied capture; a pass does not prove capture completeness or device health."
+}

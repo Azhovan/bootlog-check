@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "boot_start": {"pattern": "^Linux version synthetic$"},
+  "milestones": [
+    {"id": "network_ready", "pattern": "^NETWORK_READY$", "within_ms": 1000},
+    {"id": "application_ready", "pattern": "^APP_READY$", "within_ms": 2000},
+    {"id": "console_ready", "pattern": "^CONSOLE_READY$"}
+  ],
+  "forbidden": [
+    {"id": "kernel_panic", "pattern": "(?i)kernel panic"}
+  ]
+}

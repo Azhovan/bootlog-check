@@ -1,0 +1,9 @@
+U-Boot 2026.01 (synthetic replay)
+
+[0.500] NETWORK_READY
+[1.000] Linux version synthetic
+CONSOLE_READY
+[2.000] NETWORK_READY
+[3.000] APP_READY
+[3.500] APP_READY
+[4.000] replay complete

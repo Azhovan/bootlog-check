@@ -1,0 +1,14 @@
+bootlog-check: FAIL
+summary: total=4 passed=1 failed=2 not_evaluated=1
+schema_version: 1
+timing_basis: boot_start (elapsed_ns = witness timestamp_ns - origin timestamp_ns)
+origin: none
+[failed] boot_start (start): reason=missing within_ms=none elapsed_ns=none match_count=0
+  evidence: none
+[not_evaluated] ready (milestone): reason=no_boot_start within_ms=0 elapsed_ns=none match_count=0
+  evidence: none
+[failed] panic (forbidden): reason=forbidden_match within_ms=none elapsed_ns=none match_count=1
+  evidence: line=1 timestamp_ns=0 message="PANIC"
+[passed] safe (forbidden): reason=absent within_ms=none elapsed_ns=none match_count=0
+  evidence: none
+scope: Results describe only the supplied capture; a pass does not prove capture completeness or device health.

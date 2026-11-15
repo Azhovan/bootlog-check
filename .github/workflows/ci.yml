@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-15]
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up pinned Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version-file: .go-version
+          cache: false
+          check-latest: false
+      - name: Disable downloads for checks
+        run: |
+          echo 'GOTOOLCHAIN=local' >> "$GITHUB_ENV"
+          echo 'GOPROXY=off' >> "$GITHUB_ENV"
+          echo 'GOSUMDB=off' >> "$GITHUB_ENV"
+      - name: Format, vet, tests, public examples, executable tests, and build
+        run: ./scripts/verify.sh
+      - name: Race checks
+        run: go test -race ./...
+      - name: Parser fuzz smoke
+        if: runner.os == 'Linux'
+        run: go test . -run='^$' -fuzz='^FuzzParseLog$' -fuzztime=30s -fuzzminimizetime=5s -parallel=2 -timeout=2m
+      - name: Rules fuzz smoke
+        if: runner.os == 'Linux'
+        run: go test . -run='^$' -fuzz='^FuzzParseRules$' -fuzztime=30s -fuzzminimizetime=5s -parallel=2 -timeout=2m
+      - name: Cross-compile without cgo
+        if: runner.os == 'Linux'
+        run: |
+          mkdir -p bin
+          for target in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64; do
+            target_os=${target%/*}
+            target_arch=${target#*/}
+            CGO_ENABLED=0 GOOS="$target_os" GOARCH="$target_arch" \
+              go build -o "bin/bootlog-check-$target_os-$target_arch" ./cmd/bootlog-check
+          done

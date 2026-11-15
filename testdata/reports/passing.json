@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "timing_basis": "boot_start",
+  "origin": {"line": 3, "timestamp_ns": 1000000000, "message": "Linux version test"},
+  "checks": [
+    {"id": "boot_start", "kind": "start", "status": "passed", "reason": "matched", "within_ms": null, "elapsed_ns": 0, "match_count": 1, "evidence": {"line": 3, "timestamp_ns": 1000000000, "message": "Linux version test"}},
+    {"id": "network_ready", "kind": "milestone", "status": "passed", "reason": "matched", "within_ms": 3000, "elapsed_ns": 3000000000, "match_count": 2, "evidence": {"line": 4, "timestamp_ns": 4000000000, "message": "NETWORK_READY"}},
+    {"id": "application_ready", "kind": "milestone", "status": "passed", "reason": "matched", "within_ms": null, "elapsed_ns": null, "match_count": 1, "evidence": {"line": 5, "timestamp_ns": null, "message": "APP_READY"}},
+    {"id": "kernel_panic", "kind": "forbidden", "status": "passed", "reason": "absent", "within_ms": null, "elapsed_ns": null, "match_count": 0, "evidence": null}
+  ],
+  "summary": {"total": 4, "passed": 4, "failed": 0, "not_evaluated": 0},
+  "scope": "Results describe only the supplied capture; a pass does not prove capture completeness or device health."
+}

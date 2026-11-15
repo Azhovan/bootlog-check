@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "boot_start": {"pattern": "^Linux version "},
+  "milestones": [
+    {"id": "network_ready", "pattern": "^NETWORK_READY$", "within_ms": 3000},
+    {"id": "application_ready", "pattern": "^APP_READY$", "within_ms": 5000},
+    {"id": "service_started", "pattern": "^SERVICE_STARTED$"}
+  ],
+  "forbidden": [
+    {"id": "kernel_panic", "pattern": "(?i)kernel panic"},
+    {"id": "watchdog", "pattern": "^WATCHDOG_RESET$"}
+  ]
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bootlog-check" tests="3" failures="0" skipped="0" errors="0">
+  <testcase name="boot_start" classname="bootlog.start">
+    <system-out>[passed] boot_start (start): reason=matched within_ms=none elapsed_ns=0 match_count=1&#xA;  evidence: line=2 timestamp_ns=1000000 message=&#34;BOOT&#34;&#xA;</system-out>
+  </testcase>
+  <testcase name="ready" classname="bootlog.milestone">
+    <system-out>[passed] ready (milestone): reason=matched within_ms=1 elapsed_ns=1000000 match_count=2&#xA;  evidence: line=3 timestamp_ns=2000000 message=&#34;READY&#34;&#xA;</system-out>
+  </testcase>
+  <testcase name="panic" classname="bootlog.forbidden">
+    <system-out>[passed] panic (forbidden): reason=absent within_ms=none elapsed_ns=none match_count=0&#xA;  evidence: none&#xA;</system-out>
+  </testcase>
+  <system-out>bootlog-check: PASS&#xA;summary: total=3 passed=3 failed=0 not_evaluated=0&#xA;schema_version: 1&#xA;timing_basis: boot_start (elapsed_ns = witness timestamp_ns - origin timestamp_ns)&#xA;origin: line=2 timestamp_ns=1000000 message=&#34;BOOT&#34;&#xA;scope: Results describe only the supplied capture; a pass does not prove capture completeness or device health.&#xA;</system-out>
+</testsuite>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="bootlog-check" tests="4" failures="2" skipped="1" errors="0">
+  <testcase name="boot_start" classname="bootlog.start">
+    <failure message="missing" type="missing">[failed] boot_start (start): reason=missing within_ms=none elapsed_ns=none match_count=0&#xA;  evidence: none&#xA;</failure>
+    <system-out>[failed] boot_start (start): reason=missing within_ms=none elapsed_ns=none match_count=0&#xA;  evidence: none&#xA;</system-out>
+  </testcase>
+  <testcase name="ready" classname="bootlog.milestone">
+    <skipped message="no_boot_start">[not_evaluated] ready (milestone): reason=no_boot_start within_ms=0 elapsed_ns=none match_count=0&#xA;  evidence: none&#xA;</skipped>
+    <system-out>[not_evaluated] ready (milestone): reason=no_boot_start within_ms=0 elapsed_ns=none match_count=0&#xA;  evidence: none&#xA;</system-out>
+  </testcase>
+  <testcase name="panic" classname="bootlog.forbidden">
+    <failure message="forbidden_match" type="forbidden_match">[failed] panic (forbidden): reason=forbidden_match within_ms=none elapsed_ns=none match_count=1&#xA;  evidence: line=1 timestamp_ns=0 message=&#34;PANIC&#34;&#xA;</failure>
+    <system-out>[failed] panic (forbidden): reason=forbidden_match within_ms=none elapsed_ns=none match_count=1&#xA;  evidence: line=1 timestamp_ns=0 message=&#34;PANIC&#34;&#xA;</system-out>
+  </testcase>
+  <testcase name="safe" classname="bootlog.forbidden">
+    <system-out>[passed] safe (forbidden): reason=absent within_ms=none elapsed_ns=none match_count=0&#xA;  evidence: none&#xA;</system-out>
+  </testcase>
+  <system-out>bootlog-check: FAIL&#xA;summary: total=4 passed=1 failed=2 not_evaluated=1&#xA;schema_version: 1&#xA;timing_basis: boot_start (elapsed_ns = witness timestamp_ns - origin timestamp_ns)&#xA;origin: none&#xA;scope: Results describe only the supplied capture; a pass does not prove capture completeness or device health.&#xA;</system-out>
+</testsuite>

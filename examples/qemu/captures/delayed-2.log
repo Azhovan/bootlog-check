@@ -1,0 +1,83 @@
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x411fd070]
+[    0.000000] Linux version 6.12.60-bootlog (bootlog@example) (gcc (Alpine 15.2.0) 15.2.0, GNU ld (GNU Binutils) 2.45.1) #1 SMP 2026-11-15 00:00:00 +0000
+[    0.000000] random: crng init done
+[    0.000000] Machine model: linux,dummy-virt
+[    0.000000] OF: reserved mem: Reserved memory: No reserved-memory node in the DT
+[    0.000000] Zone ranges:
+[    0.000000]   Normal   [mem 0x0000000040000000-0x0000000047ffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000040000000-0x0000000047ffffff]
+[    0.000000] Initmem setup node 0 [mem 0x0000000040000000-0x0000000047ffffff]
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: Trusted OS migration not required
+[    0.000000] psci: SMC Calling Convention v1.0
+[    0.000000] percpu: Embedded 16 pages/cpu s35552 r0 d29984 u65536
+[    0.000000] pcpu-alloc: s35552 r0 d29984 u65536 alloc=16*4096
+[    0.000000] pcpu-alloc: [0] 0 
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: Spectre-v2
+[    0.000000] CPU features: detected: Spectre-v4
+[    0.000000] CPU features: detected: Spectre-BHB
+[    0.000000] CPU features: kernel page table isolation disabled by kernel configuration
+[    0.000000] alternatives: applying boot alternatives
+[    0.000000] Kernel command line: console=ttyAMA0 printk.time=1 loglevel=8 printk.devkmsg=on rdinit=/init bootlog.scenario=delayed
+[    0.000000] Dentry cache hash table entries: 16384 (order: 5, 131072 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 32768
+[    0.000000] mem auto-init: stack:all(zero), heap alloc:off, heap free:off
+[    0.000000] software IO TLB: SWIOTLB bounce buffer size adjusted to 0MB
+[    0.000000] software IO TLB: area num 1.
+[    0.000000] software IO TLB: mapped [mem 0x0000000047f62000-0x0000000047fa2000] (0MB)
+[    0.000000] SLUB: HWalign=64, Order=0-1, MinObjects=0, CPUs=1, Nodes=1
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=512 to nr_cpu_ids=1.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=1
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] Root IRQ handler: 0xffff800080010000
+[    0.000000] rcu: srcu_init: Setting srcu_struct sizes based on contention.
+[    0.000000] arch_timer: cp15 timer(s) running at 62.50MHz (virt).
+[    0.000000] clocksource: arch_sys_counter: mask: 0x1ffffffffffffff max_cycles: 0x1cd42e208c, max_idle_ns: 881590405314 ns
+[    0.000029] sched_clock: 57 bits at 63MHz, resolution 16ns, wraps every 4398046511096ns
+[    0.001329] Console: colour dummy device 80x25
+[    0.001903] Calibrating delay loop (skipped), value calculated using timer frequency.. 125.00 BogoMIPS (lpj=250000)
+[    0.001961] pid_max: default: 32768 minimum: 301
+[    0.002401] Mount-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.002416] Mountpoint-cache hash table entries: 512 (order: 0, 4096 bytes, linear)
+[    0.014253] cacheinfo: Unable to detect cache hierarchy for CPU 0
+[    0.019176] rcu: Hierarchical SRCU implementation.
+[    0.019203] rcu: 	Max phase no-delay instances is 1000.
+[    0.021470] smp: Bringing up secondary CPUs ...
+[    0.021893] smp: Brought up 1 node, 1 CPU
+[    0.021917] SMP: Total of 1 processors activated.
+[    0.021938] CPU: All CPU(s) started at EL1
+[    0.021979] CPU features: detected: 32-bit EL0 Support
+[    0.022022] CPU features: detected: CRC32 instructions
+[    0.028339] alternatives: applying system-wide alternatives
+[    0.034729] Memory: 123136K/131072K available (1728K kernel code, 588K rwdata, 284K rodata, 384K init, 354K bss, 7288K reserved, 0K cma-reserved)
+[    0.042655] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.042904] futex hash table entries: 256 (order: 2, 16384 bytes, linear)
+[    0.045749] DMA: preallocated 128 KiB GFP_KERNEL pool for atomic allocations
+[    0.047088] ASID allocator initialised with 65536 entries
+[    0.047432] Serial: AMBA PL011 UART driver
+[    0.059634] 9000000.pl011: ttyAMA0 at MMIO 0x9000000 (irq = 13, base_baud = 0) is a PL011 rev1
+[    0.062923] printk: legacy console [ttyAMA0] enabled
+[    0.077253] clocksource: Switched to clocksource arch_sys_counter
+[    0.084732] Unpacking initramfs...
+[    0.085771] workingset: timestamp_bits=62 max_order=15 bucket_order=0
+[    0.098200] Freeing initrd memory: 64K
+[    0.099920] clk: Disabling unused clocks
+[    0.112287] Freeing unused kernel memory: 384K
+[    0.112922] Run /init as init process
+[    0.113000]   with arguments:
+[    0.113066]     /init
+[    0.113231]   with environment:
+[    0.113477]     HOME=/
+[    0.113977]     TERM=linux
+[    0.132128] BOOTLOG_SCENARIO delayed
+[   10.134627] BOOTLOG_READY
+[   10.134990] BOOTLOG_COMPLETE
+[   10.239508] reboot: Power down

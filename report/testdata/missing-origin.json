@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "timing_basis": "boot_start",
+  "origin": null,
+  "checks": [
+    {
+      "id": "boot_start",
+      "kind": "start",
+      "status": "failed",
+      "reason": "missing",
+      "within_ms": null,
+      "elapsed_ns": null,
+      "match_count": 0,
+      "evidence": null
+    },
+    {
+      "id": "ready",
+      "kind": "milestone",
+      "status": "not_evaluated",
+      "reason": "no_boot_start",
+      "within_ms": 0,
+      "elapsed_ns": null,
+      "match_count": 0,
+      "evidence": null
+    },
+    {
+      "id": "panic",
+      "kind": "forbidden",
+      "status": "failed",
+      "reason": "forbidden_match",
+      "within_ms": null,
+      "elapsed_ns": null,
+      "match_count": 1,
+      "evidence": {
+        "line": 1,
+        "timestamp_ns": 0,
+        "message": "PANIC"
+      }
+    },
+    {
+      "id": "safe",
+      "kind": "forbidden",
+      "status": "passed",
+      "reason": "absent",
+      "within_ms": null,
+      "elapsed_ns": null,
+      "match_count": 0,
+      "evidence": null
+    }
+  ],
+  "summary": {
+    "total": 4,
+    "passed": 1,
+    "failed": 2,
+    "not_evaluated": 1
+  },
+  "scope": "Results describe only the supplied capture; a pass does not prove capture completeness or device health."
+}

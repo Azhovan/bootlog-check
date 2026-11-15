@@ -1,0 +1,7 @@
+/bin/
+/coverage.out
+/coverage.html
+/examples/qemu/build/
+/examples/qemu/downloads/
+/examples/qemu/output/
+/examples/replay/output/

@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "boot_start": {"pattern": "^Linux version 6\\.12\\.60-bootlog "},
+  "milestones": [
+    {"id": "ready", "pattern": "^BOOTLOG_READY$", "within_ms": 5000}
+  ],
+  "forbidden": [
+    {"id": "fault", "pattern": "^BOOTLOG_FORBIDDEN$"}
+  ]
+}
