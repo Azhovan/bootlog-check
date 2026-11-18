@@ -149,6 +149,13 @@ the earlier personal-account module must update their imports and module
 dependency to this path. Saved-log checking behavior and schema version 1
 remain unchanged.
 
+## About Firmdura
+
+This repository contains a standalone verification utility from
+[Firmdura](https://firmdura.com). Firmdura's commercial offer is shared embedded
+Linux security maintenance through versioned security layers or patch overlays
+for agreed user-space components.
+
 ## License
 
 Licensed under the [Apache License 2.0](LICENSE).
