@@ -32,10 +32,11 @@ log before checking it. The command will exit with code 2, write an error
 message to stderr, and produce no report. Malformed input is an error even after
 readiness.
 
-Run `./bin/bootlog-check --help` for the full flag reference. Put every flag
-before the single log path, and use `--` before a log filename that begins with
-`-`. When checking a log, supply `--rules FILE`, and quote paths that contain
-spaces. `--format` accepts `text` (the default), `json`, or `junit`.
+Run `./bin/bootlog-check --help` (or `./bin/bootlog-check -h`) for the full flag
+reference. Put every flag before the single log path, and use `--` before a log
+filename that begins with `-`. When checking a log, supply `--rules FILE`, and
+quote paths that contain spaces. `--format` accepts `text` (the default),
+`json`, or `junit`.
 
 The three limit flags accept positive ASCII decimal integers up to
 9,223,372,036,854,775,807; type the digits without commas. Signs, fractions,

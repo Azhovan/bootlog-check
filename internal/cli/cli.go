@@ -16,7 +16,7 @@ import (
 )
 
 // Version is the command's release version.
-const Version = "1.0.0"
+const Version = "1.0.1"
 
 // File is a caller-supplied input file. Run checks that Stat describes a regular
 // file and closes each successfully opened input, including on errors.
@@ -47,7 +47,7 @@ Flags:
   --max-input-bytes N   Raw log bytes, including terminators (default 16777216)
   --max-lines N         Physical log lines, including empty lines (default 100000)
   --max-line-bytes N    Bytes per line, excluding LF/CRLF (default 65536)
-  --help                Show this help without requiring input files
+  -h, --help            Show this help without requiring input files
   --version             Show the command version without requiring input files
 
 Limits must be positive decimal integers fitting signed 64-bit values.
@@ -85,6 +85,7 @@ func Run(ctx context.Context, args []string, streams Streams) int {
 	fs.StringVar(&rulesPath, "rules", "", "rules file")
 	fs.StringVar(&format, "format", string(report.Text), "report format")
 	fs.BoolVar(&showHelp, "help", false, "show help")
+	fs.BoolVar(&showHelp, "h", false, "show help")
 	fs.BoolVar(&showVersion, "version", false, "show version")
 	fs.Var(positiveLimit{&opts.MaxInputBytes}, "max-input-bytes", "positive decimal bytes")
 	fs.Var(positiveLimit{&opts.MaxLines}, "max-lines", "positive decimal lines")

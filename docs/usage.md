@@ -164,7 +164,7 @@ archives, directories, or device ports. Use shell redirection to save reports.
 | `--max-input-bytes N` | `16777216` | Maximum raw log bytes, including terminators |
 | `--max-lines N` | `100000` | Maximum physical lines, including empty ones |
 | `--max-line-bytes N` | `65536` | Maximum bytes per line, excluding LF/CRLF |
-| `--help` | | Usage; no input required; exits 0 |
+| `--help`, `-h` | | Usage; no input required; exits 0 |
 | `--version` | | Version; no input required; exits 0 |
 
 Limit flags accept only positive decimal integers. A zero value selects a

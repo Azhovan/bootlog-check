@@ -198,13 +198,13 @@ func testExecutableErrors(t *testing.T, binary string) {
 }
 
 func testExecutableInformation(t *testing.T, binary string) {
-	for _, flag := range []string{"--help", "--version"} {
+	for _, flag := range []string{"--help", "-h", "--version"} {
 		t.Run(flag, func(t *testing.T) {
 			code, stdout, stderr := executableRun(t, binary, flag)
 			if code != 0 || stdout == "" || stderr != "" {
 				t.Fatalf("code=%d stdout=%q stderr=%q; want informational success", code, stdout, stderr)
 			}
-			if flag == "--help" {
+			if flag != "--version" {
 				for _, phrase := range []string{"--rules", "--format", "--max-input-bytes", "--max-lines", "--max-line-bytes", "--help", "--version", "text", "json", "junit"} {
 					if !strings.Contains(stdout, phrase) {
 						t.Errorf("help omits %q", phrase)

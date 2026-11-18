@@ -255,14 +255,14 @@ bootlog-check --rules FILE [flags] LOG
   --max-input-bytes N
   --max-lines N
   --max-line-bytes N
-  --help
+  --help, -h
   --version
 ```
 
 Flags must precede the single log path. Both inputs are local regular files;
 stdin, URLs, compressed archives, and device ports are unsupported. Use shell
 redirection to save reports. Limits use decimal counts or byte counts. `--help`
-and `--version` need no inputs and return exit code 0.
+(or `-h`) and `--version` need no inputs and return exit code 0.
 
 | Exit code | Meaning |
 | --- | --- |

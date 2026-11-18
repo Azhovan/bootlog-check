@@ -110,7 +110,7 @@ func TestRunInputFailuresNeverRender(t *testing.T) {
 }
 
 func TestRunOutputFailure(t *testing.T) {
-	for _, args := range [][]string{{"--rules", "rules", "log"}, {"--help"}, {"--version"}} {
+	for _, args := range [][]string{{"--rules", "rules", "log"}, {"--help"}, {"-h"}, {"--version"}} {
 		for _, tc := range []struct {
 			name string
 			w    io.Writer
@@ -128,6 +128,26 @@ func TestRunOutputFailure(t *testing.T) {
 				}
 			})
 		}
+	}
+}
+
+func TestRunShortHelp(t *testing.T) {
+	for _, args := range [][]string{
+		{"-h"},
+		{"-h", "--rules", "missing-rules", "missing-log"},
+		{"--version", "-h"},
+	} {
+		t.Run(strings.Join(args, " "), func(t *testing.T) {
+			var out, stderr bytes.Buffer
+			streams := Streams{Stdout: &out, Stderr: &stderr, Open: func(path string) (File, error) {
+				t.Fatalf("help opened input %q", path)
+				return nil, errInjected
+			}}
+			code := Run(context.Background(), args, streams)
+			if code != 0 || !strings.HasPrefix(out.String(), "Usage: bootlog-check ") || stderr.Len() != 0 {
+				t.Fatalf("code=%d stdout=%q stderr=%q; want help on stdout", code, out.String(), stderr.String())
+			}
+		})
 	}
 }
 
