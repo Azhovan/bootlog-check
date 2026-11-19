@@ -46,10 +46,12 @@ includes the start of the boot. Milestones cannot be evaluated without a
 boot-start origin, but forbidden rules still inspect the whole file.
 
 If the start has no timestamp or the pattern matches more than once, the command
-exits with code 2. Check the saved lines and narrow an overly broad pattern.
-Repeated boot banners cause this error if they match the start pattern, even
-when the clock never resets. The start pattern must match exactly one record,
-and that record must have a timestamp.
+exits with code 2. For duplicate matches, the diagnostic identifies the second
+matching line and gives the physical line number of the first. Compare those
+two lines in the saved capture: a broad pattern can match two different
+messages, or a repeated boot banner can match twice even when the clock never
+resets. The start pattern must match exactly one record, and that record must
+have a timestamp.
 
 ## A ready message is present, but the milestone fails
 

@@ -1,6 +1,9 @@
 package bootlog
 
-import "regexp"
+import (
+	"fmt"
+	"regexp"
+)
 
 // Evaluate checks the complete log against immutable compiled rules. It validates
 // caller-built records without applying parser caps and does not mutate either
@@ -20,7 +23,10 @@ func Evaluate(log Log, rules *RuleSet) (Report, error) {
 			continue
 		}
 		if originIndex >= 0 {
-			return Report{}, &InvalidInputError{Line: record.Line, Field: "boot_start", Detail: "must match exactly one record"}
+			return Report{}, &InvalidInputError{
+				Line: record.Line, Field: "boot_start",
+				Detail: fmt.Sprintf("must match exactly one record; first match at line %d", log.Records[originIndex].Line),
+			}
 		}
 		originIndex = i
 	}

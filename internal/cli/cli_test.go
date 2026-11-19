@@ -76,6 +76,17 @@ func TestRunClosesInputsBeforeOutput(t *testing.T) {
 	}
 }
 
+func TestRunDuplicateBootStartNamesBothLines(t *testing.T) {
+	rules, log := inputs()
+	log.Reader = strings.NewReader("preamble\n\n[1] BOOT\n[2] READY\n\n[3] BOOT\n")
+	var out, stderr bytes.Buffer
+	code := Run(context.Background(), []string{"--rules", "rules", "log"}, streamInputs(&out, &stderr, rules, log))
+	msg := stderr.String()
+	if code != 2 || out.Len() != 0 || !strings.Contains(msg, "line 6") || !strings.Contains(msg, "first match at line 3") {
+		t.Fatalf("code=%d stdout=%q stderr=%q; want both boot-start lines on stderr", code, out.String(), msg)
+	}
+}
+
 func TestRunInputFailuresNeverRender(t *testing.T) {
 	for _, tc := range []struct {
 		name   string
