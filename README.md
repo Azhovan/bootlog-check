@@ -118,7 +118,7 @@ go test ./examples/library
 - [Troubleshooting](docs/troubleshooting.md)
 - [API and JSON schema reference](docs/schema-v1.md)
 - [Parser details](docs/parsing.md), [rules and evaluation](docs/rules.md), and [report formats](report/README.md)
-- [Behavior contract](docs/v1-contract.md) and [delivery issues](https://github.com/firmdura/bootlog-check/issues/1)
+- [v1 behavior and interface contract](docs/v1-contract.md)
 
 The [offline replay example](examples/replay/README.md) checks seven synthetic
 scenarios in all three report formats. It compares the reports with

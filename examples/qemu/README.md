@@ -62,14 +62,11 @@ python3 examples/qemu/check.py --cli ./bin/bootlog-check --captures "$work/captu
 python3 examples/qemu/test_lifecycle.py "$work" "$work/lifecycle"
 ```
 
-The final work directory for the recorded execution was
-`/private/tmp/bootlog-qemu-proof-20261115`. The Linux source archive and 119 Alpine
-package files (APKs) had already been downloaded and were copied into its cache
-before `prepare`. The script verified their checksums and rebuilt the kernel and
-initramfs from source. To reuse downloads for a new build, copy only the named
-Linux tarball and `docker-context/packages/*.apk` into the same relative paths
-in a new work directory. Setup fails if the cache contains unpinned extra files
-or a checksum does not match. Existing build and capture outputs are never silently overwritten.
+To reuse cached downloads, copy the Linux tarball and the 119 APKs from
+`docker-context/packages/*.apk` to the same relative paths in a new work
+directory. `prepare` checks their hashes before rebuilding the kernel and
+initramfs. It rejects unpinned files and checksum mismatches. Use fresh paths
+for build and capture outputs.
 
 `prepare` copies the build inputs into a snapshot, builds the container image with
 the pinned tools, and compiles the kernel using the full saved configuration. It
@@ -136,7 +133,7 @@ For example, `delayed-1.log` line 81 is the unmodified serial line:
 [   10.151326] BOOTLOG_READY
 ```
 
-Independent integer arithmetic gives
+Converting the timestamp to nanoseconds gives
 `10 * 1,000,000,000 + 151326 * 1,000 - 0 = 10,151,326,000 ns`.
 That exceeds `5000 * 1,000,000 = 5,000,000,000 ns` by 5,151,326,000 ns.
 For `normal-1`, `1,160,497,000 - 0 <= 5,000,000,000` passes.
@@ -185,18 +182,12 @@ the exact abandoned example container by name once the daemon is available.
 
 ## Pinned inputs and execution details
 
-The CLI source used for this demonstration was commit
-[`9c5bcc25c184a3e0d3162bcfee87bf75be7033c4`](https://github.com/firmdura/bootlog-check/commit/9c5bcc25c184a3e0d3162bcfee87bf75be7033c4).
-The native CLI used for the measurements was built with Go 1.27.4 at local
-revision `22b466a5a8652adad771ffe1e3c0c9d49f463237`. That revision added only this
-example and left the product source unchanged. The final clean preparation ran at
-local revision `8f7a677901dbef8f2f2298141a91ddd99371abf2`; captures, CLI comparisons,
-and lifecycle tests ran at `99676c36f55eee7b814fedbbc05408cd63e817fc`.
-These are the revisions at which the commands originally ran; they do not imply
-that the demonstration was rerun after integration or rebasing. The content
-hashes below identify the actual inputs and outputs even if commit IDs later
-changed. After the final build, the only change to the capture script was to
-reject extra unpinned cache files; all build inputs remained identical.
+The six captures above were recorded on 2026-11-15, before the example was
+integrated. The CLI was built with Go 1.27.4 from product source revision
+`9c5bcc25c184a3e0d3162bcfee87bf75be7033c4`. The capture version of `qemu.py`
+differs from the integrated script only in the check for extra cache files.
+The inputs, kernel, initramfs, CLI, and raw captures are identified by SHA-256
+below.
 
 The kernel was built from the official Linux 6.12.60 source archive. The base
 image is

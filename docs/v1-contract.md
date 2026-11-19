@@ -1,11 +1,9 @@
 # v1.0 behavior and interface contract
 
-This document defines the behavior required by
-[issue #1](https://github.com/firmdura/bootlog-check/issues/1). The library and CLI
-implement these rules. The [README](../README.md) describes installation and the
-available demonstrations; the [API and schema reference](schema-v1.md) defines
-concrete field names, JSON representations, statuses, reasons, error types,
-validation rules, toolchain setup, and runnable model examples.
+This reference describes how the library and CLI interpret saved logs and rules.
+See the [README](../README.md) for installation and examples, and the
+[API and schema reference](schema-v1.md) for field names, JSON representations,
+statuses, error types, validation rules, and runnable Go examples.
 
 ## Purpose and scope
 
@@ -326,26 +324,13 @@ validation, all rule states, deadline boundaries, control characters, public
 examples, and exit codes from the actual binary. Parser and rule fuzzing use
 bounded inputs and limits.
 
-The project must include an offline replay demo and a separately executed
-QEMU/Linux demonstration. The QEMU example pins the kernel and initramfs source
-and configuration, plus the QEMU version and machine. It boots under software
-emulation and saves serial output. Guest markers written through `/dev/kmsg`
-carry kernel timestamps. The example must demonstrate normal, missing, forbidden,
-and deliberately late behavior with broad timing margins, and independently
-check the saved lines and timestamps.
-
-Download, capture, and boot scripts belong in `examples/qemu`, outside the product.
-Generated kernel or initramfs binaries and build trees must not be committed.
-Compact, sanitized captures and their reports may be committed with their source,
-execution details, and checksums. An unexecuted recipe is not evidence of a boot,
-and a synthetic log is not a real capture.
-
-Documentation must explain public installation and imports, log format and clock
-assumptions, preamble and untimestamped messages, rules, first matches, boot start,
-duplicate starts and clock resets, limits, and errors. It must also cover library
-ownership, concurrency and cancellation, CLI exit codes,
-report schemas and JUnit mapping, CI integration, replay and QEMU commands, and
-the limits of the conclusions a report supports.
+The [offline replay](../examples/replay/README.md) checks synthetic logs against
+expected results. The [QEMU example](../examples/qemu/README.md) includes six raw
+serial captures from a pinned Linux kernel and initramfs booted under software
+emulation. `/dev/kmsg` gives the guest markers kernel timestamps. A separate
+checker reads the raw logs to verify the normal, missing, forbidden, and late
+outcomes. The example includes reproduction commands and checksums. Kernel and
+initramfs binaries are built locally.
 
 ## Primary references
 
@@ -354,6 +339,3 @@ the limits of the conclusions a report supports.
 - [QEMU direct Linux boot](https://www.qemu.org/docs/master/system/linuxboot.html)
 - [QEMU invocation](https://www.qemu.org/docs/master/system/invocation.html)
 - [Go encoding/xml](https://pkg.go.dev/encoding/xml)
-
-This project provides explicit, repeatable checks of saved boot evidence. It does
-not replace a device test harness or statistical performance analysis.
