@@ -184,7 +184,7 @@ the exact abandoned example container by name once the daemon is available.
 
 The six captures above were recorded on 2026-11-15, before the example was
 integrated. The CLI was built with Go 1.27.4 from product source revision
-`9c5bcc25c184a3e0d3162bcfee87bf75be7033c4`. The capture version of `qemu.py`
+[`9c5bcc25c184a3e0d3162bcfee87bf75be7033c4`](https://github.com/firmdura/bootlog-check/commit/9c5bcc25c184a3e0d3162bcfee87bf75be7033c4). The capture version of `qemu.py`
 differs from the integrated script only in the check for extra cache files.
 The inputs, kernel, initramfs, CLI, and raw captures are identified by SHA-256
 below.
