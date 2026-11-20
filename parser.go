@@ -2,6 +2,7 @@ package bootlog
 
 import (
 	"context"
+	"fmt"
 	"io"
 	"unicode/utf8"
 )
@@ -84,13 +85,13 @@ func ParseLog(ctx context.Context, r io.Reader, opts ParseOptions) (Log, error) 
 			// One extra trailing CR may belong to CRLF. Keep it pending until
 			// the next byte (or EOF) establishes whether it is message data.
 			if int64(len(line)) >= opts.MaxLineBytes && (int64(len(line)) > opts.MaxLineBytes || b != '\r') {
-				return Log{}, &LimitError{Resource: "max_line_bytes", Limit: opts.MaxLineBytes}
+				return Log{}, lineTooLong(lineNumber, opts.MaxLineBytes)
 			}
 			line = append(line, b)
 		}
 		if readErr == io.EOF {
 			if int64(len(line)) > opts.MaxLineBytes {
-				return Log{}, &LimitError{Resource: "max_line_bytes", Limit: opts.MaxLineBytes}
+				return Log{}, lineTooLong(lineNumber, opts.MaxLineBytes)
 			}
 			if !atLineStart {
 				if err := appendLogLine(&log, line, lineNumber, &previousTime); err != nil {
@@ -100,6 +101,10 @@ func ParseLog(ctx context.Context, r io.Reader, opts ParseOptions) (Log, error) 
 			return log, nil
 		}
 	}
+}
+
+func lineTooLong(lineNumber, maxBytes int64) error {
+	return fmt.Errorf("line %d: %w", lineNumber, &LimitError{Resource: "max_line_bytes", Limit: maxBytes})
 }
 
 func appendLogLine(log *Log, line []byte, lineNumber int64, previousTime *int64) error {

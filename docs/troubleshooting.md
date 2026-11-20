@@ -81,9 +81,11 @@ guide](rules.md) explains these restrictions with examples.
 
 ## An input or line limit is exceeded
 
-Use the error message to identify the limit. Empty lines count toward the line
-limit. The input-byte limit includes line endings; the per-line byte limit
-excludes LF or CRLF. For a trusted capture, raise only the limit you need. CLI
+For `max_line_bytes`, inspect the reported line in the original capture. Line
+numbers start at 1 and count empty lines. The per-line byte limit includes the
+timestamp prefix but not the LF or CRLF ending. A lone CR at the end of the
+file counts as data. The input-byte limit includes all line endings.
+For a trusted capture, raise only the limit you need. CLI
 limit flags accept positive decimal integers. Rules-file size and rule-count
 limits are fixed. See the [CLI reference](usage.md#cli-reference).
 

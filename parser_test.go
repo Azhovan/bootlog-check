@@ -179,6 +179,21 @@ func TestParseLogDefaultAndRaisedLineCap(t *testing.T) {
 	}
 }
 
+func TestParseLogLineLimitReportsPhysicalLine(t *testing.T) {
+	const prefix = "\n[0] BOOT\r\n\n"
+	for _, tail := range []string{"raw data!\r\n", "raw data\r"} {
+		log, err := bootlog.ParseLog(context.Background(), strings.NewReader(prefix+tail), bootlog.ParseOptions{MaxLineBytes: 8})
+		assertParserFailure(t, log, err, bootlog.ErrLimit)
+		var limit *bootlog.LimitError
+		if !errors.As(err, &limit) || limit.Resource != "max_line_bytes" || limit.Limit != 8 {
+			t.Fatalf("tail %q: want the per-line limit of 8 bytes, got %v", tail, err)
+		}
+		if !strings.Contains(err.Error(), "line 4") || strings.Contains(err.Error(), "raw data") {
+			t.Errorf("tail %q: want the physical line number without its contents, got %v", tail, err)
+		}
+	}
+}
+
 func TestParseLogLateFailures(t *testing.T) {
 	prefix := "[0] Linux version\n[1] APP_READY\n"
 	for _, suffix := range []string{"[+2] bad", "[2.0000000000] bad", "invalid\xff", "\xc3"} {
