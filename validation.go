@@ -58,13 +58,22 @@ func validateConfig(c Config) (compiledPatterns, error) {
 	if err != nil {
 		return compiledPatterns{}, err
 	}
-	ids := map[string]bool{BootStartID: true}
+	idFields := make(map[string]string)
+	checkID := func(id, field string) error {
+		if !validID(id) || id == BootStartID {
+			return &InvalidRulesError{Field: field, Detail: "must be a unique, nonreserved rule ID"}
+		}
+		if first, ok := idFields[id]; ok {
+			return &InvalidRulesError{Field: field, Detail: "duplicates " + first}
+		}
+		idFields[id] = field
+		return nil
+	}
 	for i, rule := range c.Milestones {
 		field := fmt.Sprintf("milestones[%d]", i)
-		if !validID(rule.ID) || ids[rule.ID] {
-			return invalid(field+".id", "must be a unique, nonreserved rule ID")
+		if err := checkID(rule.ID, field+".id"); err != nil {
+			return compiledPatterns{}, err
 		}
-		ids[rule.ID] = true
 		if rule.WithinMS != nil && (*rule.WithinMS < 0 || *rule.WithinMS > MaxWithinMS) {
 			return invalid(field+".within_ms", "must be nonnegative and fit in int64 nanoseconds")
 		}
@@ -76,10 +85,9 @@ func validateConfig(c Config) (compiledPatterns, error) {
 	}
 	for i, rule := range c.Forbidden {
 		field := fmt.Sprintf("forbidden[%d]", i)
-		if !validID(rule.ID) || ids[rule.ID] {
-			return invalid(field+".id", "must be a unique, nonreserved rule ID")
+		if err := checkID(rule.ID, field+".id"); err != nil {
+			return compiledPatterns{}, err
 		}
-		ids[rule.ID] = true
 		pattern, err := compilePattern(rule.Pattern, field+".pattern")
 		if err != nil {
 			return compiledPatterns{}, err

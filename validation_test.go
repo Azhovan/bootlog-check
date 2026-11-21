@@ -42,9 +42,6 @@ func TestConfigValidateRejectsInvalidModels(t *testing.T) {
 		{"long id", "milestones[0].id", func(c *bootlog.Config) { c.Milestones[0].ID = strings.Repeat("a", 65) }},
 		{"reserved milestone id", "milestones[0].id", func(c *bootlog.Config) { c.Milestones[0].ID = bootlog.BootStartID }},
 		{"reserved forbidden id", "forbidden[0].id", func(c *bootlog.Config) { c.Forbidden[0].ID = bootlog.BootStartID }},
-		{"duplicate milestone id", "milestones[1].id", func(c *bootlog.Config) { c.Milestones = append(c.Milestones, c.Milestones[0]) }},
-		{"duplicate forbidden id", "forbidden[1].id", func(c *bootlog.Config) { c.Forbidden = append(c.Forbidden, c.Forbidden[0]) }},
-		{"duplicate across lists", "forbidden[0].id", func(c *bootlog.Config) { c.Forbidden[0].ID = c.Milestones[0].ID }},
 		{"empty milestone pattern", "milestones[0].pattern", func(c *bootlog.Config) { c.Milestones[0].Pattern = "" }},
 		{"invalid forbidden regexp", "forbidden[0].pattern", func(c *bootlog.Config) { c.Forbidden[0].Pattern = "[" }},
 		{"optional pattern", "milestones[0].pattern", func(c *bootlog.Config) { c.Milestones[0].Pattern = "x?" }},
@@ -67,6 +64,35 @@ func TestConfigValidateRejectsInvalidModels(t *testing.T) {
 			var typed *bootlog.InvalidRulesError
 			if !errors.As(err, &typed) || typed.Field != test.field {
 				t.Fatalf("Validate() = %#v, want InvalidRulesError field %q", err, test.field)
+			}
+		})
+	}
+}
+
+func TestConfigValidateDuplicateIDLocations(t *testing.T) {
+	tests := []struct {
+		name, duplicate, first string
+		edit                   func(*bootlog.Config)
+	}{
+		{"milestones", "milestones[1].id", "milestones[0].id", func(c *bootlog.Config) {
+			c.Milestones = append(c.Milestones, c.Milestones[0])
+		}},
+		{"forbidden", "forbidden[1].id", "forbidden[0].id", func(c *bootlog.Config) {
+			c.Forbidden = append(c.Forbidden, c.Forbidden[0])
+		}},
+		{"across arrays", "forbidden[0].id", "milestones[1].id", func(c *bootlog.Config) {
+			c.Milestones = append(c.Milestones, bootlog.MilestoneConfig{ID: c.Forbidden[0].ID, Pattern: "READY"})
+		}},
+	}
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			config := validationConfig()
+			test.edit(&config)
+			err := config.Validate()
+			var typed *bootlog.InvalidRulesError
+			if !errors.Is(err, bootlog.ErrInvalidRules) || !errors.As(err, &typed) ||
+				typed.Field != test.duplicate || !strings.Contains(typed.Detail, test.first) {
+				t.Fatalf("Validate() = %v; want %s to identify its conflict with %s", err, test.duplicate, test.first)
 			}
 		})
 	}

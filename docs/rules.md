@@ -56,6 +56,11 @@ not be the reserved ID `boot_start`. The largest deadline is
 9,223,372,036,854 ms, which can be converted to signed 64-bit nanoseconds without
 overflow.
 
+If two rules use the same ID, the error names both fields. For example,
+`invalid rules (forbidden[0].id): duplicates milestones[1].id` means the first
+forbidden rule and the second milestone share an ID. Give one of them a
+different ID.
+
 ## Matching messages
 
 Patterns use Go's `regexp` syntax. They are case-sensitive unless the pattern
